@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html class="rat"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script src="jquery-3.3.1.slim.min.js"></script>
+<script src="abc2svg-1.js"></script>
+<script src="xml2abc.js"></script>
+<script src="xmlplay.js"></script>
+<script>
+    // Only needed if the name of a local midi-js sound font differs from the GM standard name
+    var instTab = { 25:'my_steel_guitar', 36:'yam_plec_bass', 128:'synth_drum'};
+</script>
+<style>
+.rat { width: 100%; height:100%; margin:0px; overflow: auto; }
+body { -webkit-tap-highlight-color: transparent; -webkit-user-select: none; -webkit-touch-callout: none; }
+html, body { background: white; }   /* for full screen */
+label, input, select, #mbar { font-family: arial; font-size: 15px; }
+#btns     { position: absolute; right: 0px; z-index:3; max-height: 100%; overflow-y: auto; }
+#mbar     { padding: 10px 4px 10px 4px; text-align: right; background-color: #eee; }
+#mbar:hover, #playbk:hover { cursor: pointer; }
+#menu     { background-color: #eee; padding-left: 5px; padding-right: 5px; padding-bottom: 5px; }
+#menu label { display:block; margin-bottom: 8px; }
+#menu label > span { display: inline-block; width: 7.5em; }
+#notation { height: 95%; display: inline-block; vertical-align: top; }
+#err      { height:  5%; background-color: #eee;}
+#err:hover { height:  50%; position:absolute; top:50%; }
+#rollijn  { position:absolute; height:30px; width:100%; z-index:1; top: 30%; }
+#rollijn:hover { cursor: row-resize; background: rgba(0,255,0,0.3); }
+#tempo    { width: 3em; }
+#kwart, #abcfile { display: inline-block; }
+#mtrsvg   { vertical-align: middle; }
+.dashed   { border-bottom: thin dashed black; }
+.spel     { background: rgba(0,255,0,0.3); }
+.dlog     { display:none; background:lightblue; position:absolute; top: 50%; left: 50%; width:30%; padding:10px;
+            transform: translate(-50%,-50%); z-index:9; }
+.indrag   { background: #aaa; }
+.rflt     { float: right }
+</style>
+</head><body class="rat">
+<span id="btns">
+    <div id="mbar" tabindex="1">Menu</div>
+    <form id="menu">
+        <label><span id="kwart"></span><input type="number" min="20" max="300" id="tempo"></label>
+        <label><span>Play:</span><input type='button' id="play" value="play"> or click in the margin of the score</label>
+        <label><span>Score File:</span><div id="abcfile"><input type="file" id="fknp" accept=".abc,.xml,.js" tabindex="1"></div></label>
+        <label id="drplbl"><span>Use Dropbox:</span><input id="drpuse" type="checkbox" tabindex="3"/></label>
+        <label><span>Full Screen</span><input id="fscr" type="checkbox"/></label>
+        <label id="savlbl"><span>Save SVG</span><input type='button' id="save" value="save svg"></label>
+        <label id="verlab" class="rflt"></label>
+        <label><span>Help</span><a href="xmlplay_readme.html" target="_blank">ReadMe</a></label>
+    </form>
+</span>
+<div class="rat" id="notation">
+    <div style="position:absolute;top:20%;left:50%;transform:translateX(-50%);">Use the Menu to open a score file
+        <br>or
+        <br>drag/drop a score file in this window.
+    </div>
+</div>
+<pre class="rat" id="err"></pre>
+<div id="rollijn" class="dashed" title="drag to reposition the focussed staff"></div>
+<div id="comp" class="dlog">wait until soundfonts are loaded ...<br></div>
+<pre id="wait" class="dlog">Loading, please wait ...</pre>
+<div id="saveDiv" style="display:none;"></div>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="mtrsvg" viewBox="0 0 220.31308 310.88881" width="20px">
+  <g transform="translate(-168.05564,-173.54485)" id="g3537">
+    <g id="layer1">
+      <path
+         id="path9868"
+         d="m 245.73622,175.45935 -76.37696,284.7106 217.71005,0 -75.66317,-285.61445 z"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         id="path9872"
+         d="m 187.81381,391.35577 181.41126,0"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         id="path9880"
+         d="M 378.50585,249.287 290.81011,391.32898"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         transform="matrix(0.84278384,0.53825217,-0.52161495,0.85318102,0,0)"
+         y="20.876596"
+         x="442.99142"
+         height="25.758644"
+         width="19.224855"
+         id="rect9882"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:8;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:8px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 277.14286,223.79078 0,167.85714"
+         id="path9874" />
+      <path
+         id="rect10855"
+         d="m 194.64285,460.21936 28.57143,0 -6,23.21429 -16.57143,0 z"
+         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:8;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:8;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         d="m 328.64285,460.21936 28.57143,0 -6,23.21429 -16.57143,0 z"
+         id="path10858" />
+    </g>
+  </g>
+</svg>
+<svg class="dlog" id="playbk" width="100" height="100" viewBox="0 0 20 20" style="z-index:8" xmlns="http://www.w3.org/2000/svg">
+    <path d="m8,14.5l6,-4.5l-6,-4.5l0,9l0,0zm2,-14.5c-5.5,0 -10,4.5 -10,10c0,5.5 4.5,10 10,10c5.5,0 10,-4.5 10,-10c0,-5.5 -4.5,-10 -10,-10l0,0zm0,18c-4.4,0 -8,-3.6 -8,-8c0,-4.4 3.6,-8 8,-8c4.4,0 8,3.6 8,8c0,4.4 -3.6,8 -8,8l0,0z"/>
+</svg>
+</body></html>

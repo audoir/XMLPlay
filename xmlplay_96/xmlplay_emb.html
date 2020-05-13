@@ -1,0 +1,753 @@
+<!DOCTYPE HTML>
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<script src="abc2svg-1.js"></script>
+<script src="xmlplay_emb.js"></script>
+<script>
+    // Only needed if the name of a local midi-js sound font differs from the GM standard name
+    var instTab = { 25:'my_steel_guitar', 36:'yam_plec_bass', 128:'synth_drum'};
+    // var withRT = 0; // 0 == disable real time synthesis == use always midi-js
+    // var instUrl = ''; // path to directory containing sound fonts
+</script>
+<style>
+.dlog { display:none; background:lightblue; position:absolute; top: 50%; left: 50%; width:30%; padding:10px;
+        transform: translate(-50%,-50%); z-index:9; }
+.abc svg { max-width: 600px; background: #f8f8f8; display: block; cursor: pointer; }
+.ewd svg { max-width: 800px; }
+</style>
+</head><body>
+<p>This is a simple HTML document with embedded ABC music code. The music is rendered as
+SVG pictures that allow play back by clicking inside the score. Clicking outside the score
+area stops playback. The score area has a grey background for this demonstration.</p>
+<p>Playback does real-time synthesis in the browser using <em>.sf2</em>
+<a href="https://en.wikipedia.org/wiki/SoundFont">sound fonts</a>.</p>
+<p>The ABC examples are inside an unordered list (&lt;ul&gt;) to show that
+positioning the cursor in the music works accurately, independent of
+horizontal and vertical offset by HTML layout.
+</p>
+<ul>
+<li><p>A simple bass line.</p>
+<div class="abc">
+%%maxstaffsep 30
+%%titlespace -60
+%%leftmargin 0
+%%rightmargin 0
+%%pagewidth 15cm
+%%stretchlast 0.6
+%%beginsvg
+<style type="text/css">
+.bf {font-family:sans-serif; font-size:7px}
+</style>
+<defs>
+<rect id="clr" x="-3" y="-1" width="6" height="5" fill="white"></rect>
+<rect id="clr2" x="-3" y="-1" width="11" height="5" fill="white"></rect>
+<g id="kop0" class="bf"><use xlink:href="#clr"></use><text x="-2" y="3">0</text></g>
+<g id="kop1" class="bf"><use xlink:href="#clr"></use><text x="-2" y="3">1</text></g>
+<g id="kop3" class="bf"><use xlink:href="#clr"></use><text x="-2" y="3">3</text></g>
+<g id="kop5" class="bf"><use xlink:href="#clr"></use><text x="-2" y="3">5</text></g>
+</defs>
+%%endsvg
+X:1
+T:Bass
+L:1/8
+M:4/4
+I:linebreak $
+K:Cmin
+%%map tab1 C,, print=G heads=kop3
+%%map tab1 D,, print=B heads=kop0
+%%map tab1 F,, print=B heads=kop3
+%%map tab1 G,, print=d heads=kop0
+%%map tab1 ^^F,, print=B heads=kop5
+%%map tab1 _A,, print=d heads=kop1
+%%map tab1 _E,, print=B heads=kop1
+V:1 tab stafflines=4 strings=E1,A1,D2,G2 
+%%voicemap tab1
+K:none
+M:none
+%%clef none
+%%staffscale 1.6
+%%flatbeams true
+%%stemdir down
+%%MIDI program 36
+V:1
+ C,,3 _E,,3 G,,_A,, | G,,3 F,,3 ^^F,,D,, | %2
+</div>
+</li>
+<li><p>Extended with 4 instruments.</p>
+<div class="abc ewd">
+%%titlespace -45
+%%beginsvg
+<defs>
+<text id="x" x="-3" y="0">&#xe263;</text>
+<text id="x-" x="-3" y="0">&#xe263;</text>
+<text id="x+" x="-3" y="0">&#xe263;</text>
+<text id="normal" x="-3.7" y="0">&#xe0a3;</text>
+<text id="normal-" x="-3.7" y="0">&#xe0a3;</text>
+<text id="normal+" x="-3.7" y="0">&#xe0a4;</text>
+<g id="circle-x"><text x="-3" y="0">&#xe263;</text><circle r="4" class="stroke"></circle></g>
+<g id="circle-x-"><text x="-3" y="0">&#xe263;</text><circle r="4" class="stroke"></circle></g>
+<path id="triangle" d="m-4 -3.2l4 6.4 4 -6.4z" class="stroke" style="stroke-width:1.4"></path>
+<path id="triangle-" d="m-4 -3.2l4 6.4 4 -6.4z" class="stroke" style="stroke-width:1.4"></path>
+<path id="triangle+" d="m-4 -3.2l4 6.4 4 -6.4z" class="stroke" style="fill:#000"></path>
+<path id="square" d="m-3.5 3l0 -6.2 7.2 0 0 6.2z" class="stroke" style="stroke-width:1.4"></path>
+<path id="square-" d="m-3.5 3l0 -6.2 7.2 0 0 6.2z" class="stroke" style="stroke-width:1.4"></path>
+<path id="square+" d="m-3.5 3l0 -6.2 7.2 0 0 6.2z" class="stroke" style="fill:#000"></path>
+<path id="diamond" d="m0 -3l4.2 3.2 -4.2 3.2 -4.2 -3.2z" class="stroke" style="stroke-width:1.4"></path>
+<path id="diamond-" d="m0 -3l4.2 3.2 -4.2 3.2 -4.2 -3.2z" class="stroke" style="stroke-width:1.4"></path>
+<path id="diamond+" d="m0 -3l4.2 3.2 -4.2 3.2 -4.2 -3.2z" class="stroke" style="fill:#000"></path>
+</defs>
+%%endsvg
+%%map perc1 ^g print=g midi=42 heads=x
+%%map perc2 E print=E midi=35 heads=square+,square
+%%map perc2 _c print=c midi=37 heads=triangle+,triangle
+%%map perc2 c print=c midi=38 heads=normal+,normal
+%%beginsvg
+<style type="text/css">
+.bf {font-family:sans-serif; font-size:7px}
+</style>
+<defs>
+<rect id="clr" x="-3" y="-1" width="6" height="5" fill="white"></rect>
+<rect id="clr2" x="-3" y="-1" width="11" height="5" fill="white"></rect>
+<g id="kop0" class="bf"><use xlink:href="#clr"></use><text x="-2" y="3">0</text></g>
+<g id="kop1" class="bf"><use xlink:href="#clr"></use><text x="-2" y="3">1</text></g>
+<g id="kop2" class="bf"><use xlink:href="#clr"></use><text x="-2" y="3">2</text></g>
+<g id="kop3" class="bf"><use xlink:href="#clr"></use><text x="-2" y="3">3</text></g>
+<g id="kop4" class="bf"><use xlink:href="#clr"></use><text x="-2" y="3">4</text></g>
+<g id="kop5" class="bf"><use xlink:href="#clr"></use><text x="-2" y="3">5</text></g>
+</defs>
+%%endsvg
+X:1
+T:Example
+%%score ( 1 2 ) 3 4 5
+L:1/8
+M:4/4
+I:linebreak $
+K:Eb
+U:s=!stemless!
+%%map tab3 B,,, print=G heads=kop2
+%%map tab3 C,, print=G heads=kop3
+%%map tab3 =D,, print=B heads=kop0
+%%map tab3 F,, print=B heads=kop3
+%%map tab3 G,, print=d heads=kop0
+%%map tab3 G,,, print=E heads=kop3
+%%map tab3 ^A,, print=d heads=kop3
+%%map tab3 ^D,, print=B heads=kop1
+%%map tab3 ^G,, print=d heads=kop1
+%%map tab3 ^^F,, print=B heads=kop5
+%%map tab4 B, print=f heads=kop0
+%%map tab4 B,, print=G heads=kop2
+%%map tab4 C print=f heads=kop1
+%%map tab4 C, print=G heads=kop3
+%%map tab4 D print=f heads=kop3
+%%map tab4 =D, print=B heads=kop0
+%%map tab4 E, print=B heads=kop2
+%%map tab4 F, print=B heads=kop3
+%%map tab4 G, print=d heads=kop0
+%%map tab4 ^A, print=d heads=kop3
+%%map tab4 ^D, print=B heads=kop1
+%%map tab4 ^G, print=d heads=kop1
+%%map tab4 ^G,, print=E heads=kop4
+V:1 perc nm="Drum"
+%%voicemap perc1
+K:none
+%%MIDI channel 10
+%%MIDI program 0
+%%MIDI control 7 110
+%%MIDI control 10 48
+%%MIDI drummap ^g 42
+V:2 perc 
+%%voicemap perc2
+K:none
+%%MIDI channel 10
+%%MIDI program 0
+%%MIDI control 7 110
+%%MIDI control 10 80
+%%MIDI drummap E 35
+%%MIDI drummap _c 37
+%%MIDI drummap c 38
+V:3 tab stafflines=4 strings=E1,A1,D2,G2 nostems nm="bass"
+%%voicemap tab3
+K:none
+M:none
+%%clef none
+%%staffscale 1.6
+%%flatbeams true
+%%stemdir down
+%%MIDI program 36
+%%MIDI control 7 100
+V:4 tab stafflines=6 strings=E2,A2,D3,G3,B3,E4 nostems nm="guitar"
+%%voicemap tab4
+K:none
+M:none
+%%clef none
+%%staffscale 1.6
+%%flatbeams true
+%%stemdir down
+%%MIDI program 25
+%%MIDI control 7 100
+%%MIDI control 10 127
+V:5 treble nm="piano"
+%%MIDI program 0
+%%MIDI control 7 70
+%%MIDI control 10 0
+V:1
+ ^g^g ^g^g ^g^g ^g^g | ^g^g ^g^g ^g^g ^g^g | ^g^g ^g^g ^g^g ^g^g | ^g^g ^g^g ^g^g ^g^g | %4
+V:2
+ EE c x EE c x | EE _c x EE _c x | EE c x EE c x | EE _c x EE _c x | %4
+V:3
+ sC,,3 s^D,,3 sG,, s^G,, | sG,,3 sF,,3 s^^F,, s=D,, | sF,,3 s^G,,3 s^A,, s^G,, | %3
+ sG,, sF,, s^D,, s=D,,3 sB,,, sG,,, | %4
+V:4
+ s[G,^D,C,]2 sC, s=D, s[G,^D,C,]2 s^D, sF, | s[B,G,=D,]2 s=D, sE, s[B,G,=D,]2 sF, sG, | %2
+ s[F,C,^G,,]2 s^G, s^A, s[C^G,^D,]2 sC sD | s[CG,^D,]2 sD sC s[B,G,=D,]2 sG, sB,, | %4
+V:5
+ CD [CEG]2 EF [CEG]2 | D=E [DG=B]2 FG [DGB]2 | AB [FAc]2 cd [Ace]2 | ed [EGc]2 =BG [DGB]2 | %4
+</div>
+</li>
+<li><p>Three independent voices.</p>
+<div class="abc ewd">
+%%maxstaffsep 30
+%%leftmargin 0
+%%rightmargin 0
+%%stretchlast 0.5
+%%titlespace -20
+%%pagewidth 19cm
+%%beginsvg
+<style type="text/css">
+.bf {font-family:sans-serif; font-size:7px}
+</style>
+<defs>
+<rect id="clr" x="-3" y="-1" width="6" height="5" fill="white"></rect>
+<rect id="clr2" x="-3" y="-1" width="11" height="5" fill="white"></rect>
+<g id="kop0" class="bf"><use xlink:href="#clr"></use><text x="-2" y="3">0</text></g>
+<g id="kop1" class="bf"><use xlink:href="#clr"></use><text x="-2" y="3">1</text></g>
+<g id="kop2" class="bf"><use xlink:href="#clr"></use><text x="-2" y="3">2</text></g>
+<g id="kop3" class="bf"><use xlink:href="#clr"></use><text x="-2" y="3">3</text></g>
+<g id="kop4" class="bf"><use xlink:href="#clr"></use><text x="-2" y="3">4</text></g>
+<g id="kop5" class="bf"><use xlink:href="#clr"></use><text x="-2" y="3">5</text></g>
+<g id="kop6" class="bf"><use xlink:href="#clr"></use><text x="-2" y="3">6</text></g>
+<g id="kop6+" class="bf"><use xlink:href="#clr2"></use><text x="-2" y="3">6+</text></g>
+</defs>
+%%endsvg
+X:1
+T:Abide with Me
+C:Arranged for Mountain Dulcimer
+C:Â©2008 by Alan R. Barnarsd
+%%score { ( 1 2 3 ) | ( 4 5 6 ) }
+L:1/4
+M:4/4
+I:linebreak $
+K:D
+U:s=!stemless!
+%%map tab4 A print=E heads=kop4
+%%map tab4 B print=E heads=kop5
+%%map tab4 D print=E heads=kop0
+%%map tab4 E print=E heads=kop1
+%%map tab4 G print=E heads=kop3
+%%map tab4 ^F print=E heads=kop2
+%%map tab4 ^G print=G heads=kop6+
+%%map tab5 A, print=B heads=kop4
+%%map tab5 B, print=B heads=kop5
+%%map tab5 D, print=B heads=kop0
+%%map tab5 E, print=B heads=kop1
+%%map tab5 G, print=B heads=kop3
+%%map tab5 ^F, print=B heads=kop2
+%%map tab6 A, print=G heads=kop0
+%%map tab6 B, print=G heads=kop1
+%%map tab6 D print=G heads=kop3
+%%map tab6 G print=G heads=kop6
+%%map tab6 ^C print=G heads=kop2
+%%map tab6 ^^C print=E heads=kop0
+V:1 treble-8 nm="Dulcimer"
+%%MIDI program 25
+%%MIDI control 7 0
+V:2 treble-8 
+%%MIDI program 25
+%%MIDI control 7 0
+V:3 treble-8 
+%%MIDI program 25
+%%MIDI control 7 0
+V:4 tab stafflines=||| strings=D4,A3,D3 nostems diafret 
+%%voicemap tab4
+K:none
+M:none
+%%clef none
+%%staffscale 1.6
+%%flatbeams true
+%%stemdir down
+%%MIDI channel 1
+%%MIDI program 25
+%%MIDI control 10 0
+V:5 tab stafflines=||| strings=D4,A3,D3 nostems diafret 
+%%voicemap tab5
+K:none
+M:none
+%%clef none
+%%staffscale 1.6
+%%flatbeams true
+%%stemdir down
+%%MIDI channel 2
+%%MIDI program 25
+%%MIDI control 10 64
+V:6 tab stafflines=||| strings=D4,A3,D3 nostems diafret 
+%%voicemap tab6
+K:none
+M:none
+%%clef none
+%%staffscale 1.6
+%%flatbeams true
+%%stemdir down
+%%MIDI channel 3
+%%MIDI program 25
+%%MIDI control 10 127
+V:1
+ f2 f e | d2 a2 | b a a g | f3 z | f2 g a | b2 a2 | g e f ^g | a4 | f2 f e | d2 a2 | a g g f | e4 | %12
+ e2 f g | f e d g | f2 e3/2 d/ | d4 |] %16
+V:2
+ A2 c c | B2 d c | d c c A | d d c B | A2 B d | d2 d d | B A A d | c2 g2 | A2 c c | B2 d c | %10
+ B2 B2 | B4 | A2 A A | A A B B | A2 A2 | A4 |] %16
+V:3
+ D D A G | z F F2 | G E E E | A3 z | D D D F | G G F2 | E E D B | E4 | D A A G | F F F2 | G2 D2 | %11
+ z G F E | z E D E | D E F E | D D2 G | F2 D2 |] %16
+V:4
+ s^F2 s^F sE | sD2 sA2 | sB sA sA sG | s^F3 x | s^F2 sG sA | sB2 sA2 | sG sE s^F s^G | sA4 | %8
+ s^F2 s^F sE | sD2 sA2 | sA sG sG s^F | sE4 | sE2 s^F sG | s^F sE sD sG | s^F2 sE3/2 sD/ | sD4 |] %16
+V:5
+ sD, sD, sA, sG, | x s^F, s^F,2 | sG, sE, sE, sE, | sA,3 x | sD, sD, sD, s^F, | sG, sG, s^F,2 | %6
+ sE, sE, sD, sB, | sE,4 | sD, sA, sA, sG, | s^F, s^F, s^F,2 | sG,2 sD,2 | x sG, s^F, sE, | %12
+ x sE, sD, sE, | sD, sE, s^F, sE, | sD, sD,2 sG, | s^F,2 sD,2 |] %16
+V:6
+ sA,2 s^C s^C | sB,2 sD s^C | sD s^C s^C sA, | sD sD s^C sB, | sA,2 sB, sD | sD2 sD sD | %6
+ sB, sA, sA, s^^C | s^C2 sG2 | sA,2 s^C s^C | sB,2 sD s^C | sB,2 sB,2 | sB,4 | sA,2 sA, sA, | %13
+ sA, sA, sB, sB, | sA,2 sA,2 | sA,4 |] %16
+</div>
+</li>
+<li><p>Fragment of a composition by <a href="https://wim.vree.org/tbm/windy/">Wim &amp; Wim</a>.
+<br>This also demonstrates a scrolling score inside a scrolling document. <em>xmlplay_emb</em> should
+handle this correctly.</p>
+<div class="abc ewd" style="height: 500px; overflow-y: auto; ">
+%%beginsvg
+<defs>
+<text id="x" x="-3" y="0">&#xe263;</text>
+<text id="x-" x="-3" y="0">&#xe263;</text>
+<text id="x+" x="-3" y="0">&#xe263;</text>
+<text id="normal" x="-3.7" y="0">&#xe0a3;</text>
+<text id="normal-" x="-3.7" y="0">&#xe0a3;</text>
+<text id="normal+" x="-3.7" y="0">&#xe0a4;</text>
+<g id="circle-x"><text x="-3" y="0">&#xe263;</text><circle r="4" class="stroke"></circle></g>
+<g id="circle-x-"><text x="-3" y="0">&#xe263;</text><circle r="4" class="stroke"></circle></g>
+<path id="triangle" d="m-4 -3.2l4 6.4 4 -6.4z" class="stroke" style="stroke-width:1.4"></path>
+<path id="triangle-" d="m-4 -3.2l4 6.4 4 -6.4z" class="stroke" style="stroke-width:1.4"></path>
+<path id="triangle+" d="m-4 -3.2l4 6.4 4 -6.4z" class="stroke" style="fill:#000"></path>
+<path id="square" d="m-3.5 3l0 -6.2 7.2 0 0 6.2z" class="stroke" style="stroke-width:1.4"></path>
+<path id="square-" d="m-3.5 3l0 -6.2 7.2 0 0 6.2z" class="stroke" style="stroke-width:1.4"></path>
+<path id="square+" d="m-3.5 3l0 -6.2 7.2 0 0 6.2z" class="stroke" style="fill:#000"></path>
+<path id="diamond" d="m0 -3l4.2 3.2 -4.2 3.2 -4.2 -3.2z" class="stroke" style="stroke-width:1.4"></path>
+<path id="diamond-" d="m0 -3l4.2 3.2 -4.2 3.2 -4.2 -3.2z" class="stroke" style="stroke-width:1.4"></path>
+<path id="diamond+" d="m0 -3l4.2 3.2 -4.2 3.2 -4.2 -3.2z" class="stroke" style="fill:#000"></path>
+</defs>
+%%endsvg
+%%map perc6 ^g print=g midi=42 heads=x
+%%map perc7 E print=E midi=35 heads=square+,square
+%%map perc7 _c print=c midi=37 heads=triangle+,triangle
+%%beginsvg
+<style type="text/css">
+.bf {font-family:sans-serif; font-size:7px}
+</style>
+<defs>
+<rect id="clr" x="-3" y="-1" width="6" height="5" fill="white"></rect>
+<rect id="clr2" x="-3" y="-1" width="11" height="5" fill="white"></rect>
+<g id="kop0" class="bf"><use xlink:href="#clr"></use><text x="-2" y="3">0</text></g>
+<g id="kop1" class="bf"><use xlink:href="#clr"></use><text x="-2" y="3">1</text></g>
+<g id="kop10" class="bf"><use xlink:href="#clr2"></use><text x="-2" y="3">10</text></g>
+<g id="kop11" class="bf"><use xlink:href="#clr2"></use><text x="-2" y="3">11</text></g>
+<g id="kop2" class="bf"><use xlink:href="#clr"></use><text x="-2" y="3">2</text></g>
+<g id="kop3" class="bf"><use xlink:href="#clr"></use><text x="-2" y="3">3</text></g>
+<g id="kop4" class="bf"><use xlink:href="#clr"></use><text x="-2" y="3">4</text></g>
+<g id="kop5" class="bf"><use xlink:href="#clr"></use><text x="-2" y="3">5</text></g>
+<g id="kop6" class="bf"><use xlink:href="#clr"></use><text x="-2" y="3">6</text></g>
+<g id="kop7" class="bf"><use xlink:href="#clr"></use><text x="-2" y="3">7</text></g>
+<g id="kop8" class="bf"><use xlink:href="#clr"></use><text x="-2" y="3">8</text></g>
+</defs>
+%%endsvg
+X:1
+T:Geneva Old Style
+C:Wim&Wim, 1987
+%%measurenb 0
+%%score ( 1 2 3 4 ) 5 ( 6 7 )
+L:1/8
+Q:1/4=90.00
+M:4/4
+I:linebreak $
+K:C
+U:s=!stemless!
+%%map tab1 =A print=a heads=kop5
+%%map tab1 =C print=d heads=kop5
+%%map tab1 =D print=d heads=kop7
+%%map tab1 =F print=f heads=kop6
+%%map tab1 =G print=f heads=kop8
+%%map tab1 =G, print=B heads=kop5
+%%map tab1 =c print=a heads=kop8
+%%map tab1 =d print=a heads=kop10
+%%map tab1 ^A print=a heads=kop6
+%%map tab1 ^D print=d heads=kop8
+%%map tab1 ^d print=a heads=kop11
+%%map tab1 _B print=f heads=kop11
+%%map tab2 =A, print=B heads=kop7
+%%map tab2 =A,, print=E heads=kop5
+%%map tab2 =C print=d heads=kop5
+%%map tab2 =D print=d heads=kop7
+%%map tab2 =F print=d heads=kop10
+%%map tab2 =F, print=G heads=kop8
+%%map tab2 =G print=f heads=kop8
+%%map tab2 =G, print=B heads=kop5
+%%map tab2 ^A, print=B heads=kop8
+%%map tab2 ^A,, print=E heads=kop6
+%%map tab2 ^D print=d heads=kop8
+%%map tab2 ^D, print=G heads=kop6
+%%map tab2 _E print=f heads=kop4
+%%map tab3 ^A,, print=E heads=kop6
+%%map tab4 =C print=d heads=kop5
+%%map tab4 =F print=d heads=kop10
+%%map tab4 =G, print=B heads=kop5
+%%map tab4 ^A, print=B heads=kop8
+%%map tab4 ^B, print=B heads=kop10
+%%map tab5 =A,, print=d heads=kop2
+%%map tab5 =A,,, print=G heads=kop0
+%%map tab5 =C, print=d heads=kop5
+%%map tab5 =C,, print=G heads=kop3
+%%map tab5 =D, print=d heads=kop7
+%%map tab5 =D,, print=B heads=kop0
+%%map tab5 =F,, print=B heads=kop3
+%%map tab5 =G,, print=d heads=kop0
+%%map tab5 =G,,, print=E heads=kop3
+%%map tab5 ^A,, print=d heads=kop3
+%%map tab5 ^A,,, print=G heads=kop1
+%%map tab5 ^D, print=d heads=kop8
+%%map tab5 ^D,, print=B heads=kop1
+V:1 tab stafflines=6 strings=E2,A2,D3,G3,B3,E4 nostems nm="Guitar"
+%%voicemap tab1
+K:none
+M:none
+%%clef none
+%%staffscale 1.6
+%%flatbeams true
+%%stemdir down
+%%MIDI program 25
+%%MIDI control 7 100
+%%MIDI control 10 127
+V:2 tab stafflines=6 strings=E2,A2,D3,G3,B3,E4 nostems 
+%%voicemap tab2
+K:none
+M:none
+%%clef none
+%%staffscale 1.6
+%%flatbeams true
+%%stemdir down
+%%MIDI program 25
+%%MIDI control 7 100
+%%MIDI control 10 32
+V:3 tab stafflines=6 strings=E2,A2,D3,G3,B3,E4 nostems 
+%%voicemap tab3
+K:none
+M:none
+%%clef none
+%%staffscale 1.6
+%%flatbeams true
+%%stemdir down
+%%MIDI program 25
+%%MIDI control 7 100
+%%MIDI control 10 16
+L:1/4
+V:4 tab stafflines=6 strings=E2,A2,D3,G3,B3,E4 nostems 
+%%voicemap tab4
+K:none
+M:none
+%%clef none
+%%staffscale 1.6
+%%flatbeams true
+%%stemdir down
+%%MIDI program 25
+%%MIDI control 7 100
+%%MIDI control 10 80
+V:5 tab stafflines=4 strings=E1,A1,D2,G2 nm="Bass"
+%%voicemap tab5
+K:none
+M:none
+%%clef none
+%%staffscale 1.6
+%%flatbeams true
+%%stemdir down
+%%MIDI program 36
+%%MIDI control 7 100
+%%MIDI control 10 64
+V:6 perc nm="Drum"
+%%voicemap perc6
+K:none
+%%MIDI channel 10
+%%MIDI program 0
+%%MIDI control 7 80
+%%MIDI control 10 111
+%%MIDI drummap ^g 42
+V:7 perc 
+%%voicemap perc7
+K:none
+%%MIDI channel 10
+%%MIDI program 0
+%%MIDI control 7 60
+%%MIDI control 10 16
+%%MIDI drummap E 35
+%%MIDI drummap _c 37
+V:1
+ x4 s[=G=D]3 s[=G^D] | s[=G^D] s[=G=C] s[=G=C] s[=G=C]- s[=G-=C] s[=G=D] s[=G-=D] s[=G=C] | %2
+ x4 s=G2 s=A s=G | s=G s=A s=G- s=G- s=G s=A s=G- s=G | x2 s=G,2- s[=G=G,]3 s[=A=F] |$ %5
+ s[=A=F] s^A s[^A=F] s[^A=F]- s[^A=F-] s[=A-=F] s[=A=F]2 | x4 s[=G=D]3 s[=G^D] | %7
+ s[=G^D] s[=G=C] s[=G=C] s[=G=C]- s[=G-=C] s[=G=D] s[=G-=D] s[=G=C] | x4 s[=G=D]3 s[=G^D] | %9
+ s[=G^D] s[=F^D] s[=F^D] s[=G^D] s[=G^D] s[=c=G] s[=c=G]2 |$ x4 s[=c=F]3 s[=d_B] | %11
+ s[=d_B] s[^d_B] s[^d_B] s[^d_B]- s[^d_B] s=d- s[=d_B]- s[=d_B] | x4 s[=c=F]3 s[^d_B] | %13
+ s[^d_B] s[=d_B] s[=d_B] s[=d_B]- s[=d_B] s=c- s=c2 | x4 s[=G^D]3 s[=A=F] |$ %15
+ s[=A=F] s[^A=F] s[^A=F] s[^A=F]- s[^A=F-] s[=A-=F] s[=A=F]2 :| x4 s[=G=D]4 |] %17
+V:2
+ x2 s=G,2- s=G,3 s[^A,^D,] | %1
+ s[^A,^D,] s[=G,=A,,] s[=G,=A,,] s[=G,=A,,]- s[=G,-=A,,] s[=G,^A,,] s[=G,-^A,,] s[=G,=A,,] | %2
+ x2 s=G,2- s[=D=G,]4 | s[=D=G,^A,,]3 s[=C=G,=A,,] s[=D=G,-^A,,-]3 s[=D=G,^A,,] | s^D,6 s=F,2 |$ %5
+ s[=C=F,] s=G, s[=C=G,] s[=C=F,]- s[=C=F,-]3 s[=C=F,] | x2 s=G,2- s=G,3 s[^A,^D,] | %7
+ s[^A,^D,] s[=G,=A,,] s[=G,=A,,] s[=G,=A,,]- s[=G,-=A,,] s[=G,^A,,] s[=G,-^A,,] s[=G,=A,,] | %8
+ x2 s=G,2- s=G,3 s^A, | s^A, s=A, s=A, s^A, s^A, s[^D=A,] s[^D=A,] s[_E=G,] |$ s=A,8 | %11
+ s=F s=F s=F s=F- s=F x x s=F | s=A,8 | s=F s=F s=F s=F- s=F2 s=G s^D | s^D,8 |$ %15
+ s=C s=C s=C s=C- s=C x x s=C :| s^A,,8 |] %17
+V:3
+ s^A,,4 | x4 | s^A,,4 | x4 | x4 |$ x4 | s^A,,4 | x4 | s^A,,4 | x4 |$ x4 | x4 | x4 | x4 | x4 |$ %15
+ x4 :| x4 |] %17
+V:4
+ x8 | x8 | x8 | x8 | x4 s=C2- s=C s=C |$ x8 | x8 | x8 | x8 | x8 |$ x2 s=C2 s^B,3 s=F | x8 | %12
+ x2 s=C2 s^B,3 s=F | x8 | x2 s^A,2- s^A,3 s=C |$ x8 :| x2 s=G,2- s=G,4 |] %17
+V:5
+ ^A,,,6 =A,,,/^A,,,/=C,, | =D,,^D,, =F,,^D,, =D,,=C,, ^A,,,=A,,, | ^A,,,6 =A,,,/^A,,,/=C,, | %3
+ =D,,^D,, =F,,^D,, =D,,=C,, ^A,,,=A,,, | ^D,,6 =G,,/=A,,/^A,, |$ %5
+ =A,,=G,, =F,,^D,, =D,,=C,, ^A,,,=A,,, | ^A,,,6 =A,,,/^A,,,/=C,, | %7
+ =D,,^D,, =F,,^D,, =D,,=C,, ^A,,,=A,,, | ^A,,,6 =A,,/=G,,/=F,, | %9
+ ^D,,=D,, =C,,^A,,, =C,,^A,,, =A,,,=G,,, |$ =A,,,4 =A,,2 =G,,/=A,,/^A,, | %11
+ =C,=D, ^D,=D, =C,^A,, =A,,=G,, | =A,,6 =C,/=D,/^D, | =D,=C, ^A,,=A,, =G,,=F,, ^D,,=D,, | %14
+ ^D,,6 =G,,/=A,,/^A,, |$ =A,,=G,, =F,,^D,, =D,,=C,, ^A,,,=A,,, :| ^A,,,8 |] %17
+V:6
+ xx x ^g xx x ^g | xx x ^g xx x ^g | xx x ^g xx x ^g | xx x ^g xx x ^g | xx x ^g xx x ^g | %5
+ xx x ^g xx x ^g | xx x ^g xx x ^g | xx x ^g xx x ^g | xx x ^g xx x ^g | xx x ^g xx x ^g | %10
+ xx x ^g xx x ^g | xx x ^g xx x ^g | xx x ^g xx x ^g | xx x ^g xx x ^g | xx x ^g xx x ^g | %15
+ xx x ^g xx x ^g :| xx x ^g xx x ^g |] %17
+V:7
+ EE _c x EE _c x | EE _c x EE _c x | EE _c x EE _c x | EE _c x EE _c x | EE _c x EE _c x | %5
+ EE _c x EE _c x | EE _c x EE _c x | EE _c x EE _c x | EE _c x EE _c x | EE _c x EE _c x | %10
+ EE _c x EE _c x | EE _c x EE _c x | EE _c x EE _c x | EE _c x EE _c x | EE _c x EE _c x | %15
+ EE _c x EE _c x :| EE _c x EE _c x |] %17
+</div>
+</li>
+<li><p>The instrumentation of this prelude demonstrates the capabilities of the real time
+synthesizer.<br>(at least, when the soundfonts of the three instruments are available in the same directory
+as xmlplay_emb.js, which is, of course, the case when you run this demo from the original website).<br>
+The trumpet and tenor sax use modultated filters, tremolo and vibrato, all at the same
+time.
+</p>
+<div class="abc ewd">
+X:1
+T:BWV 539 (prelude)
+%%measurenb 0
+%%score (1 2 5) (3 4)
+L:1/8
+M:4/4
+I:linebreak $
+K:F
+V:1 treble
+%%MIDI program 57
+%%MIDI control 7 80
+%%MIDI control 10 0
+V:2 treble 
+%%MIDI program 73
+%%MIDI control 7 120
+%%MIDI control 10 64
+L:1/4
+V:3 bass
+%%MIDI program 66
+%%MIDI control 7 90
+%%MIDI control 10 127
+V:4 bass 
+%%MIDI program 66
+%%MIDI control 7 90
+%%MIDI control 10 127
+V:5 treble
+%%stemdir up
+%%MIDI program 73
+%%MIDI control 7 120
+%%MIDI control 10 64
+L:1/4
+V:1
+ A4 d4- | d2 ^c=B c4 | z D^FA c4- | c2 BA GFED |$ ^CDEF G4- | G2 [EG]2 F4 | E4- EA^GA | %7
+ =B4- BBAB |$ ^c4- cA=Bc | d^cde f4- | f4- ffed | c=BA^G ABcA |$ d8- | d2 d2 c4 | =B8- | %15
+ Bdc=B e4- |$ edc=B A4- | Ac=BA d4- | dfed =b4- | b2 a^g a2 e2 |$ f8- | ffed c=BA^G | %22
+ A2- A=B c/4B/4c/4B/4c/4B/4c/4B/4 c/4B/4c/4B/4A | A4 A4- |$ Ac=BA d2 F2- | F2 E2 c4- | %26
+ cedc f2 A2- | A2 G2 e4- |$ egfe a2 c2 | =B4 g4- | g4- g2 f2- | f2 f2 e2 d2 |$ ^c4 z4 | %33
+ z A=B^c d4- | d2 ^c=B c4 | z D^FA c4- |$ c2 BA GFED | ^CDEF G4- | G2 G2 F4- | FE^G=B dfed |$ %40
+ ^cBAG FED^C | D2- DE F/4E/4F/4E/4F/4E/4F/4E/4 F/4E/4F/4E/4D | D8 | %43
+V:2
+ [DF-]2 [FA]2 | [EG]4 | z/ D2- D- D/- | D2 z2 |$ ^C2 z C | A,2 D2- | D/D/C/=B,/ C2 | D =B, E2- |$ %8
+ [E-A]2 E/ A- A/- | A2- A A | =B2 z ^G, | A, =B, E, A, |$ z ^F ^G A | =B B2 A- | A/A/^G/^F/ G2- | %15
+ G z z2 |$ A2 z/ G/F/E/ | D2 z/ c/=B/A/ | z z2 [e^g]- | [eg] z2 c- |$ c/e/d/c/ =B/A/^G/A/ | %21
+ =B2 z D | C F E D- | D C F2- |$ F2 z D- | D C A2- | A2 z F- | F E c2- |$ c2 z A- | A G z/ f/e/d/ | %30
+ z z2 d | B4- |$ B z z2 | z/ A2- A- A/ | [EG]4 | z/ z A2- A/- |$ A G z2 | z z2 E- | E E D2- | %39
+ D/ z/ z z2 |$ z z2 G, | F, B, A,2 | [F,A,]4 | %43
+V:3
+ D,4- D,D,^C,D, | E,4- E,E,D,E, | ^F,4- F,D,E,F, | G,^F,G,A, B,4- |$ B,4- B,B,A,G, | %5
+ ^E,=E,D,^C, D,E,^E,G, | A,2 E,2 A,4- | A,2 ^G,^F, G,4 |$ z A,,^C,E, G,4- | %9
+ G,2 ^E,=E, D,^B,,=B,,A,, | ^G,,A,,=B,,^B,, D,4- | D,2 D,2 ^B,,4- |$ B,,E,D,^B,, =B,,A,,^G,,^F,, | %13
+ ^G,,A,,=B,,G,, A,,B,,^B,,D, | E,4- E,E,D,E, | ^B,,4- B,,B,,D,E, |$ F,4- F,E,D,^B,, | %17
+ =B,,4- B,,B,,^B,,D, | E,4- E,D,C,=B,, | A,,^G,,A,,=B,, C,A,,B,,^B,, |$ D,^B,,D,E, ^E,D,=E,F, | %21
+ ^G,,2 ^G,2 A,2 =B,2 | A,4- A,2 ^G,2 | A,4 z4 |$ =B,4- B,B,A,B, | C2 C,2 z C=B,^B, | D4- DD^B,D | %27
+ E2 E,2 z EDE |$ F4- FFE^E | G^E=ED ED^C=B, | ^C2 A,2 DD,E,^E, | G,^E,G,A, B,A,^A,G, |$ %32
+ A,G,A,=B, ^CA,B,C | D2 D,2- D,D,^C,D, | E,4- E,E,D,E, | ^F,4- F,D,E,F, |$ G,^F,G,A, B,4- | %37
+ B,4- B,B,A,G, | A,8 | z2 =B,,2 E,4- |$ E,2 z4 E,2 | D,4- D,2 ^C,2 | D,8 | %43
+V:4
+ x8 | x8 | x8 | x8 |$ x8 | x8 | x8 | x8 |$ z A,,2- A,, z4 | x8 | x8 | x8 |$ x8 | x8 | x8 | x8 |$ %16
+ x8 | x8 | x8 | x8 |$ x8 | z2 z4 E,2 | F,2 D,2 E,4 | A,,4 A,A,G,A, |$ x8 | x8 | x8 | x8 |$ x8 | %29
+ x8 | x8 | x8 |$ x8 | x8 | x8 | x8 |$ x8 | x8 | F,E,D,^C, D,E,F,D, | ^G,,4- G,,2 G,,2 |$ %40
+ A,,2 ^C,2 D,2 A,,2 | B,,2 G,,2 A,,4 | D,,8 | %43
+V:5
+ x4 | x4 | z/ z A/ A2- | A z z2 |$ z z2 E- | E z z2 | x4 | x4 |$ x4 | x2 d2- | d2 x2 | x4 |$ x4 | %13
+ z E2- E- | E4- | E z2 ^G |$ x4 | x4 | ^G2 z d | ^B2 z A- |$ A z z2 | x4 | x4 | x4 |$ x4 | x4 | %26
+ x4 | x4 |$ x4 | x4 | e/d/^c/e/ A2- | A A G2- |$ G A/G/ A/G/^E/=E/ | ^E4 | x4 | z/ D2- D- D/- |$ %36
+ D2 z2 | z z2 B,/ z/ | x4 | x4 |$ x4 | x4 | x4 | %43
+</div>
+</li>
+<li><p>Fragment from a marching drumline.<br>The fragment is taken from https://musescore.com/krazsk2/cadences and
+the patches are extracted from &quot;MuseScore_General.sf3&quot;</p>
+<div class="abc ewd">
+%%beginsvg
+<defs>
+<text id="x" x="-3" y="0">&#xe263;</text>
+<text id="x-" x="-3" y="0">&#xe263;</text>
+<text id="x+" x="-3" y="0">&#xe263;</text>
+<text id="normal" x="-3.7" y="0">&#xe0a3;</text>
+<text id="normal-" x="-3.7" y="0">&#xe0a3;</text>
+<text id="normal+" x="-3.7" y="0">&#xe0a4;</text>
+<g id="circle-x"><text x="-3" y="0">&#xe263;</text><circle r="4" class="stroke"></circle></g>
+<g id="circle-x-"><text x="-3" y="0">&#xe263;</text><circle r="4" class="stroke"></circle></g>
+<path id="triangle" d="m-4 -3.2l4 6.4 4 -6.4z" class="stroke" style="stroke-width:1.4"></path>
+<path id="triangle-" d="m-4 -3.2l4 6.4 4 -6.4z" class="stroke" style="stroke-width:1.4"></path>
+<path id="triangle+" d="m-4 -3.2l4 6.4 4 -6.4z" class="stroke" style="fill:#000"></path>
+<path id="square" d="m-3.5 3l0 -6.2 7.2 0 0 6.2z" class="stroke" style="stroke-width:1.4"></path>
+<path id="square-" d="m-3.5 3l0 -6.2 7.2 0 0 6.2z" class="stroke" style="stroke-width:1.4"></path>
+<path id="square+" d="m-3.5 3l0 -6.2 7.2 0 0 6.2z" class="stroke" style="fill:#000"></path>
+<path id="diamond" d="m0 -3l4.2 3.2 -4.2 3.2 -4.2 -3.2z" class="stroke" style="stroke-width:1.4"></path>
+<path id="diamond-" d="m0 -3l4.2 3.2 -4.2 3.2 -4.2 -3.2z" class="stroke" style="stroke-width:1.4"></path>
+<path id="diamond+" d="m0 -3l4.2 3.2 -4.2 3.2 -4.2 -3.2z" class="stroke" style="fill:#000"></path>
+<text id="my_f"  style="display:none">f</text>
+<text id="my_p" style="display:none">p</text>
+<text id="my_mp" style="display:none">mp</text>
+</defs>
+%%endsvg
+%%deco f  6 my_f 8 0 0
+%%deco p 6 my_p 8 0 0
+%%deco mp 6 my_mp 8 0 0
+%%map perc1 B print=B midi=50 heads=normal+,normal
+%%map perc1 ^B print=B midi=52 heads=x
+%%map perc1 ^c print=c midi=53 heads=x
+%%map perc1 _B print=B midi=57 heads=diamond+,diamond
+%%map perc2 A print=A midi=48 heads=normal+,normal
+%%map perc2 F print=F midi=24 heads=normal+,normal
+%%map perc2 ^A print=A midi=49 heads=x
+%%map perc2 ^c print=c midi=73 heads=x
+%%map perc2 ^g print=g midi=121 heads=x
+%%map perc2 g print=g midi=120 heads=normal+,normal
+%%map perc3 A print=A midi=24 heads=normal+,normal
+%%map perc3 ^A print=A midi=26 heads=x
+%%map perc3 ^c print=c midi=50 heads=x
+%%map perc3 ^e print=e midi=71 heads=x
+%%map perc3 ^g print=g midi=98 heads=x
+%%map perc3 c print=c midi=48 heads=normal+,normal
+%%map perc3 e print=e midi=69 heads=normal+,normal
+%%map perc3 g print=g midi=96 heads=normal+,normal
+%%map perc4 B print=B midi=79 heads=normal+,normal
+%%map perc4 ^B print=B midi=76 heads=x
+X:1
+T:Cadences
+C:Jim Casella, Murray Gusseck
+Z:© 2015 Tapspace Publications, LLC (ASCAP). Portland, OR. International copyright secured. All rights reserved.
+%%score [ 1 2 3 4 ]
+L:1/16
+Q:1/4=112
+M:4/4
+I:linebreak $
+K:C
+V:1 perc nm="Snare Drum" snm="S.D."
+%%voicemap perc1
+K:none
+%%MIDI channel 10
+%%MIDI program 56
+%%MIDI control 10 16
+V:2 perc nm="Tenor Drums" snm="T.D."
+%%voicemap perc2
+K:none
+%%MIDI channel 10
+%%MIDI program 95
+%%MIDI control 10 48
+V:3 perc stafflines=4 nm="Bass Drums" snm="B.D."
+%%voicemap perc3
+K:none
+%%MIDI channel 10
+%%MIDI program 57
+%%MIDI control 10 80
+V:4 perc nm="Cymbals" snm="Cym."
+%%voicemap perc4
+K:none
+%%MIDI channel 10
+%%MIDI program 58
+%%MIDI control 10 111
+%%MIDI control 7 80
+L:1/4
+V:1
+ !f! !>!B2!p!B2B2B2 !f!!>!B2!p!B2B2B2 | %1
+ !f! !>!B3!>!B3!>!B2 z2!p!"^stick shot" !>![_B^c]2 !>![_B^c]2^c^c || %2
+ "^McSalsa""^A"!p! [_B^c]2!mp!!>!^c!p![_B^c] z!mp! !>!^c!p![_B^c]2 z2 [_B^c]2 [_B^c]!mp!!>!^c2!>!^c | %3
+ [I:repeat 1 2] !p! [_B^c]2!mp!!>!^c!p![_B^c] z!mp! !>!^c!p![_B^c]2 z2 [_B^c]2 [_B^c]!mp!!>!^c2!>!^c |
+ !p! [_B^c]2!mp!!>!^c!p![_B^c] z!mp! !>!^c!p![_B^c]2 z2 [_B^c]2 [_B^c]!mp!!>!^c2!>!^c |
+ !p! [_B^c]2!mp!!>!^c!p![_B^c] z!mp! !>!^c!p![_B^c]2!mp! !^!^B4 z4 |: %6
+ "^B" ^c2^c[B^c] z ^c^c2 ^c2BB !>!BBB!>!B |
+ [I:repeat 1 2]^c2^c[B^c] z ^c^c2 ^c2BB !>!BBB!>!B | 
+ ^c2^c[B^c] z ^c^c2 ^c2BB !>!BBB!>!B | %9
+ ^c2^c[B^c] z ^c^c2 !>!B2!>!B!>!B z !>!B!>!B2 :| %10
+V:2
+ z16 | z16 ||
+ !mp! ^A2>!^![g^g]2 ^A2!>!c!>!c ^A2!^![g^g]2 ^A2!>!F!>!F | 
+ [I:repeat 1 2]^A2>!^![g^g]2 ^A2!>!c!>!c ^A2>!^![g^g]2 ^A2!>!F!>!F | 
+ ^A2>!^![g^g]2 ^A2!>!c!>!c ^A2>!^![g^g]2 ^A2!>!F!>!F | %5
+ ^A2>!^![g^g]2 ^A2!>!c!>!c !>!A2>"_don't play on D.C."!ped!!/!c2 !>!c!>!c!>!!^![c^c]2!ped-up! |: %6
+ !mp! g2gg z gg!>!F !>!A2g!>![Fg] z gg2 |
+ [I:repeat 1 2]!mp! g2gg z gg!>!F !>!A2g!>![Fg] z gg2 |
+ !mp! g2gg z gg!>!F !>!A2g!>![Fg] z gg2 | %9
+ g2gg z gg2 !>![FA]2!>![FA]!>![FA] z !>![FA]!>![FA]2 :| %10
+V:3
+ z16 | z16 || %2
+ !mp! !>![^A^c^eg]2g!>![^A^c^eg] z g!>![^A^c^eg]2 !>!A2[^A^c^e^g]!>!A [^A^c^e^g]2!>!A2 | 
+ [I:repeat 1 2]!>![^A^c^eg]2g!>![^A^c^eg] z g!>![^A^c^eg]2 !>!A2[^A^c^e^g]!>!A [^A^c^e^g]2!>!A2 | 
+ !>![^A^c^eg]2g!>![^A^c^eg] z g!>![^A^c^eg]2 !>!A2[^A^c^e^g]!>!A [^A^c^e^g]2!>!A2 | %5
+ !>![^A^c^eg]2g!>![^A^c^eg] z g!>![^A^c^eg]2 !>![Aceg]4 z4 |: %6
+ !mf! [^A^ce^e^g]3[^A^c^eg^g]3[^A^ce^e^g]2 [^Ac^c^e^g]3[^A^ce^e^g]3[A^A^c^e^g]2 | 
+ [I:repeat 1 2][^A^ce^e^g]3[^A^c^eg^g]3[^A^ce^e^g]2 [^Ac^c^e^g]3[^A^ce^e^g]3[A^A^c^e^g]2 | 
+ [^A^ce^e^g]3[^A^c^eg^g]3[^A^ce^e^g]2 [^Ac^c^e^g]3[^A^ce^e^g]3[A^A^c^e^g]2 | %9
+ [^A^ce^e^g]3[^A^c^eg^g]3[^A^ce^e^g]2 !>![Aceg]2!>![Aceg]!>![Aceg] z !>![Aceg]!>![Aceg]2 :| %10
+V:4
+ z4 | z4 ||
+ !p! ^B ^B ^B ^B |
+ [I:repeat 1 2]!p! ^B ^B ^B ^B |
+ !p! ^B ^B ^B ^B |
+ ^B ^B !>!!^!B z |: 
+ ^B ^B ^B ^B | 
+ [I:repeat 1 3]^B ^B ^B ^B |
+ ^B ^B ^B ^B |
+ ^B ^B ^B ^B :| %10
+</div>
+</li>
+</ul>
+<p>End of Demo</p>
+<div id="comp" class="dlog">wait until soundfonts are loaded ...<br></div>
+</body></html>

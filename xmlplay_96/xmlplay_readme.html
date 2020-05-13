@@ -1,0 +1,164 @@
+<!DOCTYPE HTML>
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width", initial-scale=1.0">
+<style>
+body { max-width: 900px; width: 99%; margin-right: 0.5%; margin-left: 0.5%; }
+.tab { border: thin black solid; margin-top:0.5em; margin-bottom:0.5em;
+       width: 97%; table-layout: fixed; }
+.indent { margin-left: 3%; }
+td:first-child { width: 17%; word-break: break-word; }
+td:last-child { width: 83%; }
+.tab td { padding:0.2em; vertical-align: top; }
+.tab tr:nth-child(even) { background-color: #eee; }
+.big { font-size: large; }
+li { margin-bottom: 5px; }
+pre { overflow-x: auto; }
+</style>
+</head><body>
+
+<h3>Xmlplay</h3>
+<p>Plays a MusicXML or ABC file with real time synthesis using sf2 sound fonts.</p>
+<p>Play back can be started with the play button or by clicking outside the score. Clicking
+inside the score repositions the cursor (where play back will start)</p>
+<p>Score files can be opened with the browse button or by dragging and dropping a file in the
+blank area of the page.</p>
+
+<h3>Menu</h3>
+<table class="indent tab">
+<tr><td><em>Tempo box</em></td>
+    <td>While playing you can change the tempo with this box. The starting value in this
+    box is derived from the score. Once you change the tempo all subsequent explicit tempo
+    markings in the score get scaled accordingly (though you see no change in the score).</td></tr>
+<tr><td><em>Play</em></td>
+    <td>Starts/Stops playback (you can also click outside the score area)</td></tr>
+<tr><td><em>Score File</em></td>
+    <td>The browse button opens a file dialog where you can navigate to your own score file. Only files with
+    extension .abc or .xml are shown</td></tr>
+<tr><td><em>Use Dropbox</em></td>
+    <td>When this box is checked the Score File button changes into one that opens your Dropbox. After logging in
+    you can browse your Dropbox and select a score file.</td></tr>
+<tr><td><em>Save svg</em></td>
+    <td>Saves the currently displayed score as an SVG file.</td></tr>
+</table>
+
+<h3><a name="params"></a>Extra parameters in the URL</h3>
+<em>xmlplay</em> recognizes extra parameters in the URL:
+<table class="indent tab">
+<tr><td><em>noErr</em></td>
+    <td>Hides the error display area at the bottom of the screen</td></tr>
+<tr><td><em>noMenu</em></td>
+    <td>Hides the Menu.</td></tr>
+<tr><td><em>noSave</em></td>
+    <td>Removes the Save button from the menu</td></tr>
+<tr><td><em>noDash</em></td>
+    <td>Hides the dashed line, which is used to align (and shift) the score</td></tr>
+<tr><td><em>noPF</em></td>
+    <td>Do not use the page format specified in a MusicXML score file. Use the default page format of <em>abc2svg</em></td></tr>
+<tr><td><em>noLB</em></td>
+    <td>Do not translate the score line breaks specified in MusicXML to ABC line breaks. Let <em>abc2svg</em> do its own
+    automatic line break algorithm.</td></tr>
+<tr><td><em>noRT</em></td>
+    <td>Disables the real time synthesizer and forces play back to use pre-recorded wave forms
+    (known as <em>midi-js</em>, see <a href="https://github.com/mudcube/MIDI.js">here</a> and
+    <a href="http://www.midijs.net/">here</a>)</td></tr>
+</table>
+<p>For instance, the following example:
+<pre class="indent big">
+<a href="xmlplay.html?test/bwv539p.abc&noErr&noDash&noMenu">xmlplay.html?test/bwv539p.abc&amp;noErr&amp;noDash&amp;noMenu</a>
+</pre>
+shows the prelude without any buttons, dashed line or error bar. You can start/stop play back by
+clicking outside the score area.
+</p>
+
+
+<h3><a name="sf2"></a>Sound fonts</h3>
+<p>Real time synthesis only works when a special javascript version of a <em>.sf2</em> soundfont
+is present in the same directory as <em>xmlplay</em>. Such a javascript version can be made
+with the program <em>mkjsSf</em>.
+</p>
+<p>Requirements: <a href="https://nodejs.org/">node.js</a> and <a href="http://lame.sourceforge.net/">Lame</a>
+(or <a href="http://sox.sourceforge.net/">SOX</a>).
+</p>
+<p><em>mkjsSf</em> is included in the zip file of the distribution in subdirectory <em>sf_js</em>.
+To run <em>mkjsSf</em> <a href="https://nodejs.org/">node.js</a> must be installed on the system.
+<em>mkjsSf</em> compresses all wave form samples of the sf2 soundfont into much smaller <em>mp3</em>
+chunks. To do this <em>mkjsSf</em>
+uses an (external) program: either <a href="http://sox.sourceforge.net/">sox</a> or
+<a href="http://lame.sourceforge.net/">lame</a>. At least one of these
+must be installed (and in the PATH).
+</p>
+<p>Suppose we have a soundfont2 file: <em>midiGM.sf2</em>, containing all 127 midi instruments of the
+GM standard. A javascript soundfont file for the "acoustic steel guitar" (instrument 25) is then
+made as follows:
+<pre class="indent">&gt; mkjsSf_console.js 25 0 0 midiGM.sf2</pre>
+<em>mkjsSf_console.js</em> is a batch file that calls <em>mkjsSf</em> with the required parameters:
+</p>
+<table class="indent tab">
+<tr><td><em>instrument number</em></td><td>25</td></tr>
+<tr><td><em>bank number</em></td><td>0</td></tr>
+<tr><td><em>volume correction</em></td><td>0 (0 dB = no correction)</td></tr>
+<tr><td><em>path to the soundfont</em></td><td>./midiGM.sf2</td></tr>
+<tr><td><em>compression format (optional)</em></td><td>mp3, ogg or wav (default: mp3)</td></tr>
+</table>
+<p>The last parameter <em>compression format</em> is optional. When it is omitted the program
+uses mp3 compression with <em>lame</em>. Otherwise the program will use <em>sox</em> with the
+indicated compression format.
+</p>
+<p>The program outputs a javascript soundfont file named: &quot;<em>instr25mp3.js</em>&quot;, which
+should be placed in the same directory as xmlplay. The name is fixed and should not be changed.
+<em>xmlplay</em> only looks for sound font files named <em>instrXXXmp3.js</em>, where <em>XXX</em>
+is the instrument
+number ranging from 0 to 127. As the name implies the javascript sound font file only contains one
+instrument. If other instruments are used in the score, separate files must be made for each of them.
+</p>
+
+<h3><a name="load"></a>Loading of Sound fonts</h3>
+<p>Normally <em>xmlplay</em> looks for sound fonts in the same directory as <em>xmlplay.html</em>.
+This behaviour can be changed by setting the variable <em>instUrl</em> <b>after</b> <em>xmlplay.js</em> is loaded.
+For instance you may have the following lines in <em>xmlplay.html</em>:
+</p>
+<pre class="indent">
+&lt;script src="xmlplay.js">&lt;/script>
+&lt;script>
+    var instUrl = 'path/to/soundfonts';
+&lt;/script>
+</pre>
+<p>Now <em>xmlplay</em> looks for sound fonts in directory &quot;path/to/soundfonts&quot;.
+<br>The load order is as follows:</p>
+<ul>
+<li>First <em>xmlplay</em> tries to find its own javascript sound font files, named:
+<em>instrXXXmp3.js</em> (explained above). Only these sound fonts allow for real time synthesis.</li>
+<li>Next, it will look for local <em>midi-js</em> sound fonts. No real time synthesis but simple
+playback of the pre-rendered waveforms in the <em>midi-js</em> sound font.</li>
+<li>When no local sound font files are found at all, <em>xmlplay</em> will try to download midi-js files
+from <a href="https://github.com/mudcube/MIDI.js">this project</a> on Github</li>
+<li>Finally, when even downloading from Github fails,  <em>xmlplay</em> gives up and play back
+will not work.</li>
+</ul>
+
+<h3><a name="emb"></a>Embedding</h3>
+<p><em>xmlplay_emb</em> is a version of <em>xmlplay</em> that allows embedding of ABC notation in
+an HTML document. A simple example of such a document is:
+<pre class="indent">
+&lt;html>
+&lt;script src=&quot;abc2svg-1.js&quot;>&lt;/script>
+&lt;script src=&quot;xmlplay_emb.js&quot;>&lt;/script>
+&lt;div class=&quot;abc&quot;>
+X:1
+K:C
+C D E F |  G A B c |
+&lt;/div>
+&lt;div id="comp">&lt;/div>
+&lt;/html>
+</pre>
+displaying the scale of C. Apart from <em>xmlplay_emb.js</em> also <em>abc2svg-1.js</em> needs
+to be included in the header of the file. It is the library that renders the score. The last
+element is an empty &lt;div>, that is used by <em>xmlplay_emb</em> to display
+messages during initial loading of sound fonts. It should have id=&quot;comp&quot; for
+<em>xmlplay_emb</em> to find it.</p>
+<p>A larger example of a <a href="xmlplay_emb.html">page with embedded ABC</a></p>
+<p>If you want to embed a MusicXML document, first translate it to ABC with
+<a href="https://wim.vree.org/js/xml2abc-js.html">this utility</a> (just drag and
+drop the xml file on the empty page).</p>
+</body></html>

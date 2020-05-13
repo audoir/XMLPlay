@@ -1,0 +1,124 @@
+<!DOCTYPE HTML><html><head><meta charset="utf-8"></head>
+<body><pre>2019-06-15
+
+	* Revision: 96
+	- removed the erroneous insertion of %%measurenb 0 in function dolayout.
+	- added %%measurenb 0 to the ABC text on the html example.
+
+	* Revision: 95
+	- use option 'mnum' of xml2abc-js for measure numbers at the start of each
+	system.
+
+2019-06-13
+
+	* Revision: 94
+	both xmlplay and mlplay_emb:
+	- accept %%MIDI directions from the (new) block type of the ABC parser
+
+2019-06-12
+
+	* Revision: 93
+	- smooth scrolling when CSS scroll-bahavior is supported
+	- key shortcuts (arrows, spacebar, m)
+	- arrows up/down change tempo
+	- arrows left/right move note cursors
+
+2019-05-21
+
+	* Revision: 92
+	- css bug: when collapsed the menu still covered the scrollbar
+
+2019-05-20
+
+	* Revision: 91
+	- xmlplay_emb.js: add the %%fullsvg command in fromt of each ABC fragment to
+	make sure they are independent of each other (xlink refences).
+
+2019-05-19
+
+	* Revision: 90
+	- bug: volta not honored
+
+2019-05-14
+
+	* Revision: 89
+	- xmlplay and xmlplay_emb: better computation of staff y-position for note
+	selection and staff alignment.
+
+	* Revision: 88
+	- bug in xmlplay_emb: forgot to compensate for the amount of document
+	scrolling when computing which staff was clicked.
+
+	* Revision: 87
+	- bug: Searching for a clicked note did not account for the staff/voice of
+	the clicked note.
+
+	* Revision: 86
+	- css changes in readme
+
+2019-02-19
+
+	* Revision: 85
+	- full screen checkbox added to the menu
+	- full screen change handler
+
+2019-02-13
+
+	* Revision: 84
+	- use Lame as default compressor
+	- only use SOX when compression format is specified by optional parameter
+	- only give up when both sox and lame are not present
+	- update readme
+
+	* Revision: 83
+	- mkjsSf.js can now also work with Lame.
+	- optional parameter in mkjsSf_console.js to select compression format.
+	- readme updated to describe new features of mkjsSf.
+	- small layout change in xmlplay_emb.html.
+
+2018-12-07
+
+	* Revision: 82
+	- implementation of dynamics (!p! !f! !ff! etc) changing note velocities.
+	- changed mapping of percussion sounds.
+	- added marching drum sounds (bank 128, patch 56,57,58 and 95).
+	- bug in xmlplay_emb: replace HTML entities wih global regex in innerHTML
+	- added marching drum line to the demos
+
+2018-11-13
+
+	* Revision: 81
+	- put stereoPanner back in stead of normal Panner (only iOS does not support
+	the stereoPanner)
+
+	* Revision: 80
+	- replace array decomposition with element assignments
+	- test audioCtx in addUnlockListener
+	- remove version setting in xmlplay_emb
+
+2018-11-12
+
+	* Revision: 79
+	xmlplay.html:
+	- load instrument dialog above the start play svg picture xmlplay.js and
+	xmlplay_emb.js:
+	- test browser support for panning, filter, oscillator and contant source.
+	- skip panner node when not available
+	- add use-filter, use-LFO and use-VCF booleans to the instrument parameters
+	and use these during synthesis (opneer)
+	- generate appropriate "not supported" warnings
+
+2018-11-03
+
+	* Revision: 78
+	- swap y/z axis for the panner, because y = up/down and z = front/back in
+	Web Audio API.
+	- bug in translation drumnotes when a natural note is mapped
+
+2018-11-02
+
+	* Revision: 77
+	- panningNode needs x,y position relative to the listener at 0,0. Compute
+	this position at a unity circle around 0,0 with panning from -pi/2..pi/2
+
+</pre></body></html>
