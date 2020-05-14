@@ -287,7 +287,7 @@ function doModel (abctxt) {
         }
         var acctab = {}, accTrans = {'-2':-2,'-1':-1,0:0,1:1,2:2,3:0}, alts = {}, curKey = {}, tied = {};
         var diamap = '0,1-,1,1+,2,3,3,4,4,5,6,6+,7,8-,8,8+,9,10,10,11,11,12,13,13+,14'.split (',')
-        var dyntab = {'ppp':30, 'pp':45, 'p':60, 'mp':75, 'mf':90, 'f':105, 'ff':120, 'fff':127}
+        var dyntab = {'ppp':30, 'pp':30, 'p':30, 'mp':75, 'mf':90, 'f':105, 'ff':120, 'fff':127}
         var vceVol = [], vol;
         var mtr = voice_tb [0].meter.a_meter;
         gBeats = mtr.length ? parseInt (mtr [0].top) : 4;
